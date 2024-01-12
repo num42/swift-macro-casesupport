@@ -1,0 +1,7 @@
+@CaseConversion
+enum TestEnum {
+  case firstCase
+  case secondCase(string: String, bool: Bool)
+  case thirdCase(argument: String)
+  case fourthCase(subtypeArgument: SubType.String)
+}

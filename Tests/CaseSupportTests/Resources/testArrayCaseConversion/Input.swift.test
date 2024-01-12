@@ -1,0 +1,11 @@
+@CaseConversion
+enum CellEntry: Hashable {
+  case complaintsCard(
+    entries: [ComplaintsCardViewEntry]
+  )
+  case weightCard(
+    weightEntries: [WeightEntry],
+    bmi: Double?,
+    weightGoal: Double?
+  )
+}

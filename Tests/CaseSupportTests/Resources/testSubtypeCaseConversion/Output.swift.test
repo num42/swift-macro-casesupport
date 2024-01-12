@@ -1,0 +1,12 @@
+enum TestEnum {
+  case firstCase
+  case secondCase(string: SubType.String, bool: Bool)
+
+    var asSecondCase: (string: SubType.String, bool: Bool)? {
+      return if case let .secondCase(string, bool) = self {
+        (string, bool)
+      } else {
+        nil
+      }
+    }
+}

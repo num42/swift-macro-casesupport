@@ -1,0 +1,5 @@
+@CaseConversion
+enum TestEnum {
+  case firstCase
+  case secondCase(string: SubType.String, bool: Bool)
+}

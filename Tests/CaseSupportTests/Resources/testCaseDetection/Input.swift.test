@@ -1,0 +1,5 @@
+@CaseDetection
+enum TestEnum {
+  case firstCase
+  case secondCase
+}
