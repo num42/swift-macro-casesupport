@@ -19,14 +19,11 @@ private extension EnumCaseElementSyntax {
   }
 
   var associatedValues: [EnumCaseParameterSyntax] {
-    guard let parameterList = parameterClause?
-      .as(EnumCaseParameterClauseSyntax.self)?
-      .parameters
-    else {
+    guard let parameterList = parameterClause?.parameters else {
       return []
     }
 
-    return parameterList.compactMap { $0.as(EnumCaseParameterSyntax.self) }
+    return parameterList.compactMap { $0 }
   }
 }
 
