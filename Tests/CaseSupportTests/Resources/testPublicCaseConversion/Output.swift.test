@@ -1,0 +1,30 @@
+enum TestEnum {
+  case firstCase
+  case secondCase(string: String, bool: Bool)
+  case thirdCase(argument: String)
+  case fourthCase(subtypeArgument: SubType.String)
+
+    public var asSecondCase: (string: String, bool: Bool)? {
+      return if case let .secondCase(string, bool) = self {
+        (string, bool)
+      } else {
+        nil
+      }
+    }
+
+    public var asThirdCase: String? {
+      return if case let .thirdCase(argument) = self {
+        argument
+      } else {
+        nil
+      }
+    }
+
+    public var asFourthCase: SubType.String? {
+      return if case let .fourthCase(subtypeArgument) = self {
+        subtypeArgument
+      } else {
+        nil
+      }
+    }
+}

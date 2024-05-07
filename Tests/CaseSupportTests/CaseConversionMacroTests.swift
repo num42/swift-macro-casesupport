@@ -12,6 +12,10 @@ final class CaseConversionMacroTests: XCTestCase {
   func testCaseConversion() {
     testMacro(macros: testMacros)
   }
+    
+  func testPublicCaseConversion() {
+    testMacro(macros: testMacros)
+  }
 
   func testSubtypeCaseConversion() {
     testMacro(macros: testMacros)
