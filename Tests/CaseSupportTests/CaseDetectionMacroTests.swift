@@ -12,4 +12,8 @@ final class CaseDetectionMacroTests: XCTestCase {
   func testCaseDetection() {
     testMacro(macros: testMacros)
   }
+    
+  func testPublicCaseDetection() {
+    testMacro(macros: testMacros)
+  }
 }
