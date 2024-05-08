@@ -1,0 +1,78 @@
+public enum ElementType: Codable, Equatable {
+    case checkbox(CheckboxElement)
+    case dateEntry(DateEntryElement)
+    case label(LabelElement)
+    case numberEntry(NumberEntryElement)
+    case roomSelection(RoomSelectionElement)
+    case selectionList(SelectionListElement)
+    case signature(SignatureElement)
+    case textEntry(TextEntryElement)
+
+    public var rawValue: String {
+      String(String(describing: self).split(separator: "(")[0])
+    }
+
+    public var isCheckbox: Bool {
+      if case .checkbox = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isDateEntry: Bool {
+      if case .dateEntry = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isLabel: Bool {
+      if case .label = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isNumberEntry: Bool {
+      if case .numberEntry = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isRoomSelection: Bool {
+      if case .roomSelection = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isSelectionList: Bool {
+      if case .selectionList = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isSignature: Bool {
+      if case .signature = self {
+        true
+      } else {
+        false
+      }
+    }
+
+    public var isTextEntry: Bool {
+      if case .textEntry = self {
+        true
+      } else {
+        false
+      }
+    }
+}

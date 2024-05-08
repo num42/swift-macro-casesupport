@@ -45,7 +45,7 @@ public struct CaseDetectionMacro: MemberMacro {
             .map { original, uppercased in
                 """
                 \(raw: modifiers)var is\(raw: uppercased): Bool {
-                  return if case .\(raw: original) = self {
+                  if case .\(raw: original) = self {
                     true
                   } else {
                     false

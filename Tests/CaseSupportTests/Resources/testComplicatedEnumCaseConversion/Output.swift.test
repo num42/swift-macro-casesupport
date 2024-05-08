@@ -1,0 +1,78 @@
+public enum ElementType: Codable, Equatable {
+    case checkbox(CheckboxElement)
+    case dateEntry(DateEntryElement)
+    case label(LabelElement)
+    case numberEntry(NumberEntryElement)
+    case roomSelection(RoomSelectionElement)
+    case selectionList(SelectionListElement)
+    case signature(SignatureElement)
+    case textEntry(TextEntryElement)
+
+    public var rawValue: String {
+      String(String(describing: self).split(separator: "(")[0])
+    }
+
+    public var asCheckbox: CheckboxElement? {
+      if case let .checkbox(checkboxElement) = self {
+        checkboxElement
+      } else {
+        nil
+      }
+    }
+
+    public var asDateEntry: DateEntryElement? {
+      if case let .dateEntry(dateEntryElement) = self {
+        dateEntryElement
+      } else {
+        nil
+      }
+    }
+
+    public var asLabel: LabelElement? {
+      if case let .label(labelElement) = self {
+        labelElement
+      } else {
+        nil
+      }
+    }
+
+    public var asNumberEntry: NumberEntryElement? {
+      if case let .numberEntry(numberEntryElement) = self {
+        numberEntryElement
+      } else {
+        nil
+      }
+    }
+
+    public var asRoomSelection: RoomSelectionElement? {
+      if case let .roomSelection(roomSelectionElement) = self {
+        roomSelectionElement
+      } else {
+        nil
+      }
+    }
+
+    public var asSelectionList: SelectionListElement? {
+      if case let .selectionList(selectionListElement) = self {
+        selectionListElement
+      } else {
+        nil
+      }
+    }
+
+    public var asSignature: SignatureElement? {
+      if case let .signature(signatureElement) = self {
+        signatureElement
+      } else {
+        nil
+      }
+    }
+
+    public var asTextEntry: TextEntryElement? {
+      if case let .textEntry(textEntryElement) = self {
+        textEntryElement
+      } else {
+        nil
+      }
+    }
+}

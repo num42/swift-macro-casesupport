@@ -20,4 +20,8 @@ final class CaseDetectionMacroTests: XCTestCase {
     func testEmptyEnumCaseDetection() {
         testMacro(macros: testMacros)
     }
+    
+    func testComplicatedEnumCaseDetection(){
+        testMacro(macros: testMacros)
+    }
 }
