@@ -92,7 +92,9 @@ public struct CaseConversionMacro: MemberMacro {
     providingMembersOf declaration: some DeclGroupSyntax,
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-      let addPublicIdentifier = node.boolValueOfArgumentWith(name: "public")
+      let modifiers = declaration.modifiers
+          .map { $0.description.replacingOccurrences(of: "\n", with: "") }
+          .joined(separator: "")
       
       let elements = declaration.memberBlock.members
           .compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
@@ -106,7 +108,7 @@ public struct CaseConversionMacro: MemberMacro {
         let tuple = associatedValues.asTypedTuple
 
         return """
-        \(raw: addPublicIdentifier ? "public " : "")var as\(raw: uppercased): \(raw: tuple)\(raw: tuple.hasSuffix("?") ? "" : "?") {
+        \(raw: modifiers)var as\(raw: uppercased): \(raw: tuple)\(raw: tuple.hasSuffix("?") ? "" : "?") {
           return if case let .\(raw: original.name)(\(raw: associatedValues.asParameters)) = self {
             \(raw: associatedValues.asUntypedList)
           } else {

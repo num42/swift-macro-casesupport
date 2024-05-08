@@ -19,7 +19,9 @@ public struct CaseDetectionMacro: MemberMacro {
     providingMembersOf declaration: some DeclGroupSyntax,
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-    let addPublicIdentifier = node.boolValueOfArgumentWith(name: "public")
+      let modifiers = declaration.modifiers
+          .map { $0.description.replacingOccurrences(of: "\n", with: "") }
+          .joined(separator: "")
       
     return declaration.memberBlock.members
       .compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
@@ -27,7 +29,7 @@ public struct CaseDetectionMacro: MemberMacro {
       .map { ($0, $0.initialUppercased) }
       .map { original, uppercased in
         """
-        \(raw: addPublicIdentifier ? "public " : "")var is\(raw: uppercased): Bool {
+        \(raw: modifiers)var is\(raw: uppercased): Bool {
           return if case .\(raw: original) = self {
             true
           } else {

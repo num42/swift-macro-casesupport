@@ -1,5 +1,5 @@
-@CaseConversion(public: true)
-enum TestEnum {
+@CaseConversion
+public enum TestEnum {
   case firstCase
   case secondCase(string: String, bool: Bool)
   case thirdCase(argument: String)
