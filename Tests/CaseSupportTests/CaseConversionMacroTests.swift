@@ -28,7 +28,7 @@ final class CaseConversionMacroTests: XCTestCase {
     func testEmptyEnumCaseConversion() {
         testMacro(macros: testMacros)
     }
-    
+
     func testComplicatedEnumCaseConversion() {
         testMacro(macros: testMacros)
     }

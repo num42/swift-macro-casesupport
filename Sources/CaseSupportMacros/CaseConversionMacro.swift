@@ -69,8 +69,8 @@ extension [EnumCaseParameterSyntax] {
         } else {
             """
             \(
-              self[0].firstName?.text
-              ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
+                self[0].firstName?.text
+                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
             )
             """
         }
@@ -84,8 +84,8 @@ extension [EnumCaseParameterSyntax] {
         } else {
             """
             \(
-              self[0].firstName?.text
-              ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
+                self[0].firstName?.text
+                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
             )
             """
         }
