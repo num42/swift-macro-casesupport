@@ -9,7 +9,7 @@ enum CellEntry: Hashable {
   )
 
     var asComplaintsCard: [ComplaintsCardViewEntry]? {
-      return if case let .complaintsCard(entries) = self {
+      if case let .complaintsCard(entries) = self {
         entries
       } else {
         nil
@@ -17,7 +17,7 @@ enum CellEntry: Hashable {
     }
 
     var asWeightCard: (weightEntries: [WeightEntry], bmi: Double?, weightGoal: Double?)? {
-      return if case let .weightCard(weightEntries, bmi, weightGoal) = self {
+      if case let .weightCard(weightEntries, bmi, weightGoal) = self {
         (weightEntries, bmi, weightGoal)
       } else {
         nil

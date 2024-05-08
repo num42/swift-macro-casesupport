@@ -68,7 +68,10 @@ extension [EnumCaseParameterSyntax] {
             """
         } else {
             """
-            \(self[0].firstName!.text)
+            \(
+                self[0].firstName?.text
+                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
+            )
             """
         }
     }
@@ -80,7 +83,10 @@ extension [EnumCaseParameterSyntax] {
             """
         } else {
             """
-            \(self[0].firstName!.text)
+            \(
+                self[0].firstName?.text
+                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
+            )
             """
         }
     }
@@ -124,7 +130,7 @@ public struct CaseConversionMacro: MemberMacro {
 
                 return """
                 \(raw: modifiers)var as\(raw: uppercased): \(raw: tuple)\(raw: tuple.hasSuffix("?") ? "" : "?") {
-                  return if case let .\(raw: original.name)(\(raw: associatedValues.asParameters)) = self {
+                  if case let .\(raw: original.name)(\(raw: associatedValues.asParameters)) = self {
                     \(raw: associatedValues.asUntypedList)
                   } else {
                     nil

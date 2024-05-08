@@ -3,7 +3,7 @@ enum TestEnum {
   case secondCase
 
     var isFirstCase: Bool {
-      return if case .firstCase = self {
+      if case .firstCase = self {
         true
       } else {
         false
@@ -11,7 +11,7 @@ enum TestEnum {
     }
 
     var isSecondCase: Bool {
-      return if case .secondCase = self {
+      if case .secondCase = self {
         true
       } else {
         false
