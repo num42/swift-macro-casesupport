@@ -87,6 +87,17 @@ extension [EnumCaseParameterSyntax] {
 }
 
 public struct CaseConversionMacro: MemberMacro {
+    public enum MacroError: Error, CustomStringConvertible {
+        case requiresEnum
+
+        public var description: String {
+            switch self {
+            case .requiresEnum:
+                "#CaseConversion requires an enum"
+            }
+        }
+    }
+    
   public static func expansion(
     of node: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
@@ -95,6 +106,10 @@ public struct CaseConversionMacro: MemberMacro {
       let modifiers = declaration.modifiers
           .map { $0.description.replacingOccurrences(of: "\n", with: "") }
           .joined(separator: "")
+      
+      guard declaration.as(EnumDeclSyntax.self) != nil else {
+          throw MacroError.requiresEnum
+      }
       
       let elements = declaration.memberBlock.members
           .compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }

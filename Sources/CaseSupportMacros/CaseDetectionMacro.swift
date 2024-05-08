@@ -14,11 +14,26 @@ private extension TokenSyntax {
 }
 
 public struct CaseDetectionMacro: MemberMacro {
+    public enum MacroError: Error, CustomStringConvertible {
+        case requiresEnum
+
+        public var description: String {
+            switch self {
+            case .requiresEnum:
+                "#CaseDetection requires an enum"
+            }
+        }
+    }
+    
   public static func expansion(
     of node: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
+      guard declaration.as(EnumDeclSyntax.self) != nil else {
+          throw MacroError.requiresEnum
+      }
+      
       let modifiers = declaration.modifiers
           .map { $0.description.replacingOccurrences(of: "\n", with: "") }
           .joined(separator: "")
