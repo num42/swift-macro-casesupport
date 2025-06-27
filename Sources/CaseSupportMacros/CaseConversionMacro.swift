@@ -108,6 +108,7 @@ public struct CaseConversionMacro: MemberMacro {
     public static func expansion(
         of _: AttributeSyntax,
         providingMembersOf declaration: some DeclGroupSyntax,
+        conformingTo protocols: [TypeSyntax],
         in _: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         let modifiers = declaration.modifiers

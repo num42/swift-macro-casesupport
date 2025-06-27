@@ -28,6 +28,7 @@ public struct CaseDetectionMacro: MemberMacro {
     public static func expansion(
         of _: AttributeSyntax,
         providingMembersOf declaration: some DeclGroupSyntax,
+        conformingTo protocols: [TypeSyntax],
         in _: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         guard declaration.as(EnumDeclSyntax.self) != nil else {
