@@ -16,12 +16,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
-      - name: Enable using Prebuilts
-        run: defaults write com.apple.dt.Xcode IDEPackageEnablePrebuilts YES
 
       - name: Test Build
-        run: swift build --enable-experimental-prebuilts
+        run: swift build -Xswiftc -warnings-as-errors --enable-experimental-prebuilts
         
       - name: Run Tests
-        run: swift test --enable-experimental-prebuilts
+        run: swift test -Xswiftc -warnings-as-errors --enable-experimental-prebuilts
