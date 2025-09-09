@@ -6,15 +6,15 @@ import XCTest
 #if canImport(CaseSupportMacros)
     import CaseSupportMacros
 
-    final class CaseDetectionMacroDiagnosticsTests: XCTestCase {
+    final class CaseConversionMacroDiagnosticsTests: XCTestCase {
         let testMacros: [String: Macro.Type] = [
-            "CaseDetection": CaseDetectionMacro.self,
+            "CaseConversion": CaseConversionMacro.self,
         ]
 
         func testStructThrowsError() throws {
             assertMacroExpansion(
                 """
-                @CaseDetection
+                @CaseConversion
                 struct AStruct {}
                 """,
                 expandedSource: """
@@ -22,7 +22,7 @@ import XCTest
                 """,
                 diagnostics: [
                     .init(
-                        message: CaseDetectionMacro.MacroError.requiresEnum.description,
+                        message: CaseConversionMacro.MacroError.requiresEnum.description,
                         line: 1,
                         column: 1
                     ),
