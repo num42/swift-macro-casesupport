@@ -2,34 +2,34 @@ import CaseSupportMacros
 import MacroTester
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
+import Testing
 
 private let testMacros: [String: Macro.Type] = [
     "CaseConversion": CaseConversionMacro.self,
 ]
 
-final class CaseConversionMacroTests: XCTestCase {
-    func testCaseConversion() {
-        testMacro(macros: testMacros)
+@Suite struct CaseConversionMacroTests {
+    @Test func caseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testPublicCaseConversion() {
-        testMacro(macros: testMacros)
+    @Test func publicCaseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testSubtypeCaseConversion() {
-        testMacro(macros: testMacros)
+    @Test func subtypeCaseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testArrayCaseConversion() {
-        testMacro(macros: testMacros)
+    @Test func arrayCaseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testEmptyEnumCaseConversion() {
-        testMacro(macros: testMacros)
+    @Test func emptyEnumCaseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testComplicatedEnumCaseConversion() {
-        testMacro(macros: testMacros)
+    @Test func complicatedEnumCaseConversion() {
+        MacroTester.testMacro(macros: testMacros)
     }
 }

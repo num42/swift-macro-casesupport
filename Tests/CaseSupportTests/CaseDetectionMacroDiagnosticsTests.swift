@@ -1,17 +1,17 @@
 import MacroTester
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
+import Testing
 
 #if canImport(CaseSupportMacros)
     import CaseSupportMacros
 
-    final class CaseDetectionMacroDiagnosticsTests: XCTestCase {
+    @Suite struct CaseDetectionMacroDiagnosticsTests {
         let testMacros: [String: Macro.Type] = [
             "CaseDetection": CaseDetectionMacro.self,
         ]
 
-        func testStructThrowsError() throws {
+        @Test func structThrowsError() throws {
             assertMacroExpansion(
                 """
                 @CaseDetection

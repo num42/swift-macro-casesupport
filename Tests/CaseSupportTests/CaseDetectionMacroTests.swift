@@ -2,26 +2,26 @@ import CaseSupportMacros
 import MacroTester
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
+import Testing
 
 private let testMacros: [String: Macro.Type] = [
     "CaseDetection": CaseDetectionMacro.self,
 ]
 
-final class CaseDetectionMacroTests: XCTestCase {
-    func testCaseDetection() {
-        testMacro(macros: testMacros)
+@Suite struct CaseDetectionMacroTests {
+    @Test func caseDetection() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testPublicCaseDetection() {
-        testMacro(macros: testMacros)
+    @Test func publicCaseDetection() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testEmptyEnumCaseDetection() {
-        testMacro(macros: testMacros)
+    @Test func emptyEnumCaseDetection() {
+        MacroTester.testMacro(macros: testMacros)
     }
 
-    func testComplicatedEnumCaseDetection() {
-        testMacro(macros: testMacros)
+    @Test func complicatedEnumCaseDetection() {
+        MacroTester.testMacro(macros: testMacros)
     }
 }
