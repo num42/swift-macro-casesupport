@@ -3,8 +3,8 @@ import SwiftSyntaxMacros
 
 @main
 struct CaseSupportPlugin: CompilerPlugin {
-    let providingMacros: [Macro.Type] = [
-        CaseDetectionMacro.self,
-        CaseConversionMacro.self,
-    ]
+  let providingMacros: [Macro.Type] = [
+    CaseDetectionMacro.self,
+    CaseConversionMacro.self,
+  ]
 }
