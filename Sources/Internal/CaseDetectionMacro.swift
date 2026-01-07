@@ -1,17 +1,7 @@
+import Foundation
 import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
-
-extension TokenSyntax {
-  fileprivate var initialUppercased: String {
-    let name = text
-    guard let initial = name.first else {
-      return name
-    }
-
-    return "\(initial.uppercased())\(name.dropFirst())"
-  }
-}
 
 public struct CaseDetectionMacro: MemberMacro {
   public enum MacroError: Error, CustomStringConvertible {

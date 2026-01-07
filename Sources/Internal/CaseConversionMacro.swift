@@ -1,32 +1,5 @@
-internal import Foundation
 import SwiftSyntax
-import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
-
-extension TokenSyntax {
-  fileprivate var initialUppercased: String {
-    let name = text
-    guard let initial = name.first else {
-      return name
-    }
-
-    return "\(initial.uppercased())\(name.dropFirst())"
-  }
-}
-
-extension EnumCaseElementSyntax {
-  fileprivate var hasAssociatedValues: Bool {
-    !associatedValues.isEmpty
-  }
-
-  fileprivate var associatedValues: [EnumCaseParameterSyntax] {
-    guard let parameterList = parameterClause?.parameters else {
-      return []
-    }
-
-    return parameterList.compactMap { $0 }
-  }
-}
 
 extension EnumCaseParameterSyntax {
   var typeString: String {
@@ -48,50 +21,6 @@ extension EnumCaseParameterSyntax {
       }
 
     return name + (isOptional ? "?" : "")
-  }
-}
-
-extension [EnumCaseParameterSyntax] {
-  var asTypedTuple: String {
-    if count > 1 {
-      """
-      (\(compactMap { "\($0.firstName!.text): \($0.typeString)" }.joined(separator: ", ")))
-      """
-    } else {
-      """
-      \(self[0].typeString)
-      """
-    }
-  }
-
-  var asParameters: String {
-    if count > 1 {
-      """
-      \(compactMap { "\($0.firstName!.text)" }.joined(separator: ", "))
-      """
-    } else {
-      """
-      \(
-                self[0].firstName?.text
-                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
-            )
-      """
-    }
-  }
-
-  var asUntypedList: String {
-    if count > 1 {
-      """
-      (\(compactMap { "\($0.firstName!.text)" }.joined(separator: ", ")))
-      """
-    } else {
-      """
-      \(
-                self[0].firstName?.text
-                    ?? self[0].typeString.prefix(1).lowercased() + self[0].typeString.dropFirst()
-            )
-      """
-    }
   }
 }
 
