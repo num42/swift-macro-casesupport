@@ -1,13 +1,13 @@
 @CaseConversion
 public enum ElementType: Codable, Equatable {
-    case checkbox(CheckboxElement)
-    case dateEntry(DateEntryElement)
-    case label(LabelElement)
-    case numberEntry(NumberEntryElement)
-    case roomSelection(RoomSelectionElement)
-    case selectionList(SelectionListElement)
-    case signature(SignatureElement)
-    case textEntry(TextEntryElement)
+    case checkbox(checkboxElement: CheckboxElement)
+    case dateEntry(dateEntryElement: DateEntryElement)
+    case label(labelElement: LabelElement)
+    case numberEntry(numberEntryElement: NumberEntryElement)
+    case roomSelection(roomSelectionElement: RoomSelectionElement)
+    case selectionList(selectionListElement: SelectionListElement)
+    case signature(signatureElement: SignatureElement)
+    case textEntry(textEntryElement: TextEntryElement)
 
     public var rawValue: String {
       String(String(describing: self).split(separator: "(")[0])
