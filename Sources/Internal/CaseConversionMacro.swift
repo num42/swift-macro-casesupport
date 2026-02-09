@@ -59,9 +59,11 @@ public struct CaseConversionMacro: MemberMacro {
       .compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
       .flatMap(\.elements)
 
-    guard elements.filter(\.hasAssociatedValues).allSatisfy({ element in
-      element.associatedValues.allSatisfy { $0.firstName != nil }
-    }) else {
+    guard
+      elements.filter(\.hasAssociatedValues).allSatisfy({ element in
+        element.associatedValues.allSatisfy { $0.firstName != nil }
+      })
+    else {
       let diagnostic = Diagnostic(
         node: Syntax(attribute),
         message: MacroDiagnostic.requiresLabeledAssociatedValues
