@@ -22,7 +22,7 @@ import Testing
           """,
         diagnostics: [
           .init(
-            message: CaseDetectionMacro.MacroError.requiresEnum.description,
+            message: CaseDetectionMacro.MacroDiagnostic.requiresEnum.message,
             line: 1,
             column: 1
           )

@@ -1,3 +1,4 @@
+import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxMacros
 
@@ -25,34 +26,49 @@ extension EnumCaseParameterSyntax {
 }
 
 public struct CaseConversionMacro: MemberMacro {
-  public enum MacroError: Error, CustomStringConvertible {
-    case requiresEnum
+  public enum MacroDiagnostic: String, DiagnosticMessage {
+    case requiresEnum = "#CaseConversion requires an enum"
+    case requiresLabeledAssociatedValues = "#CaseConversion requires labeled associated values"
 
-    public var description: String {
-      switch self {
-      case .requiresEnum:
-        "#CaseConversion requires an enum"
-      }
+    public var message: String { rawValue }
+
+    public var diagnosticID: MessageID {
+      MessageID(domain: "CaseSupport", id: rawValue)
     }
+
+    public var severity: DiagnosticSeverity { .error }
   }
 
   public static func expansion(
-    of _: AttributeSyntax,
+    of attribute: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
     conformingTo protocols: [TypeSyntax],
-    in _: some MacroExpansionContext
+    in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
     let modifiers = declaration.modifiers
       .map { $0.description.replacingOccurrences(of: "\n", with: "") }
       .joined(separator: "")
 
     guard declaration.as(EnumDeclSyntax.self) != nil else {
-      throw MacroError.requiresEnum
+      let diagnostic = Diagnostic(node: Syntax(attribute), message: MacroDiagnostic.requiresEnum)
+      context.diagnose(diagnostic)
+      throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
     let elements = declaration.memberBlock.members
       .compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
       .flatMap(\.elements)
+
+    guard elements.filter(\.hasAssociatedValues).allSatisfy({ element in
+      element.associatedValues.allSatisfy { $0.firstName != nil }
+    }) else {
+      let diagnostic = Diagnostic(
+        node: Syntax(attribute),
+        message: MacroDiagnostic.requiresLabeledAssociatedValues
+      )
+      context.diagnose(diagnostic)
+      throw DiagnosticsError(diagnostics: [diagnostic])
+    }
 
     return
       elements

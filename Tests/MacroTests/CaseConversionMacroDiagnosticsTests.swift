@@ -22,7 +22,31 @@ import Testing
           """,
         diagnostics: [
           .init(
-            message: CaseConversionMacro.MacroError.requiresEnum.description,
+            message: CaseConversionMacro.MacroDiagnostic.requiresEnum.message,
+            line: 1,
+            column: 1
+          )
+        ],
+        macros: testMacros
+      )
+    }
+
+    @Test func unlabeledAssociatedValueThrowsError() throws {
+      assertMacroExpansion(
+        """
+        @CaseConversion
+        enum Route {
+          case detail(Int)
+        }
+        """,
+        expandedSource: """
+          enum Route {
+            case detail(Int)
+          }
+          """,
+        diagnostics: [
+          .init(
+            message: CaseConversionMacro.MacroDiagnostic.requiresLabeledAssociatedValues.message,
             line: 1,
             column: 1
           )

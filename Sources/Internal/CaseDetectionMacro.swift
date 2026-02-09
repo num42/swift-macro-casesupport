@@ -1,28 +1,32 @@
 import Foundation
+import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 public struct CaseDetectionMacro: MemberMacro {
-  public enum MacroError: Error, CustomStringConvertible {
-    case requiresEnum
+  public enum MacroDiagnostic: String, DiagnosticMessage {
+    case requiresEnum = "#CaseDetection requires an enum"
 
-    public var description: String {
-      switch self {
-      case .requiresEnum:
-        "#CaseDetection requires an enum"
-      }
+    public var message: String { rawValue }
+
+    public var diagnosticID: MessageID {
+      MessageID(domain: "CaseSupport", id: rawValue)
     }
+
+    public var severity: DiagnosticSeverity { .error }
   }
 
   public static func expansion(
-    of _: AttributeSyntax,
+    of attribute: AttributeSyntax,
     providingMembersOf declaration: some DeclGroupSyntax,
     conformingTo protocols: [TypeSyntax],
-    in _: some MacroExpansionContext
+    in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
     guard declaration.as(EnumDeclSyntax.self) != nil else {
-      throw MacroError.requiresEnum
+      let diagnostic = Diagnostic(node: Syntax(attribute), message: MacroDiagnostic.requiresEnum)
+      context.diagnose(diagnostic)
+      throw DiagnosticsError(diagnostics: [diagnostic])
     }
 
     let modifiers = declaration.modifiers
